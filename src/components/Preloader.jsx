@@ -2,59 +2,60 @@ import { useState, useEffect } from 'react'
 
 function Preloader({ onLoadingComplete }) {
   const [progress, setProgress] = useState(0)
-  const [isLoading, setIsLoading] = useState(true)
+  const [loadingText, setLoadingText] = useState('Initializing')
 
   useEffect(() => {
-    // Simulasi loading progress
+    const texts = ['Loading assets', 'Configuring magic', 'Almost ready', 'Welcome!']
+    let textIndex = 0
+    let progressValue = 0
+    
     const interval = setInterval(() => {
-      setProgress(prev => {
-        const newProgress = prev + Math.random() * 15
-        if (newProgress >= 100) {
-          clearInterval(interval)
-          setTimeout(() => {
-            setIsLoading(false)
-            if (onLoadingComplete) onLoadingComplete()
-          }, 500)
-          return 100
-        }
-        return newProgress
-      })
-    }, 200)
-
+      progressValue += Math.floor(Math.random() * 10) + 5
+      
+      if (progressValue >= 100) {
+        progressValue = 100
+        clearInterval(interval)
+        setTimeout(() => {
+          if (onLoadingComplete) onLoadingComplete()
+        }, 500)
+      }
+      
+      setProgress(progressValue)
+      
+      // Ganti teks loading setiap 30% progress
+      if (progressValue > (textIndex + 1) * 25 && textIndex < texts.length - 1) {
+        textIndex++
+        setLoadingText(texts[textIndex])
+      }
+    }, 150)
+    
     return () => clearInterval(interval)
   }, [onLoadingComplete])
-
-  if (!isLoading) return null
 
   return (
     <div className="preloader">
       <div className="preloader-container">
-        {/* Logo Animation */}
+        {/* Logo Animasi */}
         <div className="preloader-logo">
+          <div className="preloader-logo-glow"></div>
           <div className="preloader-logo-inner">
             <span className="preloader-logo-text">EH</span>
           </div>
-          <div className="preloader-logo-glow"></div>
         </div>
-
+        
         {/* Progress Bar */}
         <div className="preloader-progress-container">
           <div className="preloader-progress-bar" style={{ width: `${progress}%` }}>
             <div className="preloader-progress-glow"></div>
           </div>
         </div>
-
-        {/* Progress Text */}
+        
+        {/* Persentase & Status */}
         <div className="preloader-text">
-          <span className="preloader-percentage">{Math.floor(progress)}%</span>
-          <span className="preloader-status">
-            {progress < 30 && "Loading assets..."}
-            {progress >= 30 && progress < 60 && "Preparing components..."}
-            {progress >= 60 && progress < 90 && "Almost there..."}
-            {progress >= 90 && "Ready to launch! 🚀"}
-          </span>
+          <span className="preloader-percentage">{progress}%</span>
+          <span className="preloader-status">{loadingText}...</span>
         </div>
-
+        
         {/* Loading Dots */}
         <div className="preloader-dots">
           <div className="dot"></div>

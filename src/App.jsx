@@ -4,9 +4,12 @@ import './App.css'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import ProjectDetail from './pages/ProjectDetail'
+import Preloader from './components/Preloader'
+import CustomCursor from './components/CustomCursor'  // ← TAMBAHKAN
 
 function App() {
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,23 +19,35 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const handleLoadingComplete = () => {
+    setIsLoading(false)
+  }
+
   return (
-    <div className="app">
-      <div className="noise"></div>
-      <div className="gradient-bg"></div>
+    <>
+      {/* Custom Cursor */}
+      <CustomCursor />
       
-      <BrowserRouter>
-        <Navbar isScrolled={isScrolled} />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/project/:id" element={<ProjectDetail />} />
-        </Routes>
-      </BrowserRouter>
+      {/* Preloader */}
+      {isLoading && <Preloader onLoadingComplete={handleLoadingComplete} />}
       
-      <footer className="footer">
-        <p>© 2026 Eko Haryadi Portofolio</p>
-      </footer>
-    </div>
+      <div className="app" style={{ opacity: isLoading ? 0 : 1, transition: 'opacity 0.5s ease' }}>
+        <div className="noise"></div>
+        <div className="gradient-bg"></div>
+        
+        <BrowserRouter>
+          <Navbar isScrolled={isScrolled} />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/project/:id" element={<ProjectDetail />} />
+          </Routes>
+        </BrowserRouter>
+        
+        <footer className="footer">
+          <p>© 2026 Eko Haryadi | Portofolio</p>
+        </footer>
+      </div>
+    </>
   )
 }
 

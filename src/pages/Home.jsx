@@ -9,6 +9,9 @@ function Home() {
   const [selectedImage, setSelectedImage] = useState(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   
+  // Back to Top Button state
+  const [showBackToTop, setShowBackToTop] = useState(false)
+  
   // Fungsi untuk membuka modal
   const openModal = (imageUrl) => {
     setSelectedImage(imageUrl)
@@ -36,6 +39,14 @@ function Home() {
     }
   }
 
+  // Fungsi scroll ke atas (Back to Top)
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  }
+
   // REF untuk efek foto magnetic
   const imageRef = useRef(null)
   const [imageStyle, setImageStyle] = useState({})
@@ -52,8 +63,7 @@ function Home() {
     "Software Developer (Web, Mobile & IoT)",
     "Fullstack Web & Mobile Developer",
     "React & Flutter Developer",
-    "AI & IoT Enthusiast",
-    "Tech Content Creator"
+    "AI & IoT Enthusiast"
   ]
   const typingSpeed = 100
   const deletingSpeed = 50
@@ -95,6 +105,20 @@ function Home() {
     const timer = setTimeout(handleTyping, isDeleting ? deletingSpeed : typingSpeed)
     return () => clearTimeout(timer)
   }, [roleText, isDeleting, loopNum, pauseTime])
+
+  // Back to Top Button - detect scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowBackToTop(true)
+      } else {
+        setShowBackToTop(false)
+      }
+    }
+    
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   // Efek magnetic foto
   const handleMouseMove = (e) => {
@@ -244,100 +268,62 @@ function Home() {
 
   return (
     <>
-      {/* Hero Section */}
-      <section id="home" className="hero">
-        <div className="hero-content">
-          <div className="badge">✨ Available for work</div>
+           {/* Hero Section */}
+<section id="home" className="hero">
+  <div className="hero-container">
+    {/* Konten Kiri - Teks */}
+    <div className="hero-left">
+      <div className="badge desktop-badge">✨ Available for work</div>
+      <h1 className="glitch-text laser-text" data-text={text}>
+        {text}
+      </h1>
+      <div className="typed-container">
+        <span className="typed-text">{roleText}</span>
+        <span className="cursor">|</span>
+      </div>
+      <p className="hero-desc">
+        Software Developer dengan minat pada Web, Mobile, dan Internet of Things. 
+        Membangun aplikasi yang scalable, interaktif, dan berorientasi pada solusi 
+        nyata melalui teknologi modern.
+      </p>
+      <div className="hero-buttons">
+        <button className="btn-primary" onClick={() => scrollToSection('projects')}>
+          View Projects →
+        </button>
+        <button className="btn-secondary" onClick={() => scrollToSection('contact')}>
+          Hire Me
+        </button>
+      </div>
+      <div className="stats">
+        <div className="stat"><h3>5+</h3><p>Years Exp</p></div>
+        <div className="stat"><h3>35+</h3><p>Projects</p></div>
+        <div className="stat"><h3>60+</h3><p>Clients</p></div>
+      </div>
+    </div>
 
-          <div className="profile-image-container">
-            <div 
-              className="profile-image-wrapper"
-              ref={imageRef}
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
-              style={imageStyle}
-            >
-              <img 
-                src="/foto-eko.jpg" 
-                alt="Eko Haryadi" 
-                className="profile-image"
-              />
-              <div className="profile-glow"></div>
-            </div>
-          </div>
-  
-          <h1 className="glitch-text laser-text" data-text={text}>
-            {text}
-          </h1>
-          
-          <div className="typed-container">
-            <span className="typed-text">{roleText}</span>
-            <span className="cursor">|</span>
-          </div>
-          
-          <p className="hero-desc">
-            Software Developer dengan minat pada Web, Mobile, dan Internet of Things. 
-            Membangun aplikasi yang scalable, interaktif, dan berorientasi pada solusi 
-            nyata melalui teknologi modern.
-          </p>
-          <div className="hero-buttons">
-            <button className="btn-primary" onClick={() => scrollToSection('projects')}>
-              View Projects →
-            </button>
-            <button className="btn-secondary" onClick={() => scrollToSection('contact')}>
-              Contact Me
-            </button>
-          </div>
-          <div className="stats">
-            <div className="stat"><h3>5+</h3><p>Years Exp</p></div>
-            <div className="stat"><h3>35+</h3><p>Projects</p></div>
-            <div className="stat"><h3>60+</h3><p>Clients</p></div>
-          </div>
+    {/* Konten Kanan - Foto Profile */}
+    <div className="hero-right">
+      {/* Badge untuk mobile - akan muncul di atas foto */}
+      <div className="badge badge-mobile" style={{ display: 'none' }}>✨ Available for work</div>
+      <div className="profile-image-container">
+        <div 
+          className="profile-image-wrapper"
+          ref={imageRef}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          style={imageStyle}
+        >
+          <img 
+            src="/foto-eko.jpg" 
+            alt="Eko Haryadi" 
+            className="profile-image"
+          />
+          <div className="profile-glow"></div>
         </div>
-      </section>
-
-      {/* Skills Section */}
-      <section id="skills" className="skills-section">
-        <div className="container">
-          <div className="section-header">
-            <span className="section-tag">My Skills</span>
-            <h2>Tech Stack & Expertise</h2>
-          </div>
-          
-          <div className="skills-pill-container">
-            {Object.entries(skills).map(([category, skillList]) => (
-              <div key={category} className="pill-category">
-                <div className="pill-category-title">
-                  <span className="pill-category-icon">
-                    {category === 'web' && '🌐'}
-                    {category === 'mobile' && '📱'}
-                    {category === 'iot' && '🔌'}
-                  </span>
-                  <span>
-                    {category === 'web' && 'Web Development'}
-                    {category === 'mobile' && 'Mobile Development'}
-                    {category === 'iot' && 'IoT & Embedded'}
-                  </span>
-                </div>
-                <div className="skills-pill-grid">
-                  {skillList.map((skill, idx) => (
-                    <div key={idx} className="skill-pill">
-                      <div className="pill-icon">{skill.icon}</div>
-                      <div className="pill-info">
-                        <div className="pill-name">{skill.name}</div>
-                        <div className="pill-bar-container">
-                          <div className="pill-bar-fill" style={{width: `${skill.level}%`}}></div>
-                        </div>
-                      </div>
-                      <div className="pill-percentage">{skill.level}%</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* Projects Section */}
       <section id="projects" className="projects-section">
@@ -539,6 +525,15 @@ function Home() {
           </div>
         </div>
       </section>
+
+      {/* Back to Top Button */}
+      {showBackToTop && (
+        <button onClick={scrollToTop} className="back-to-top-btn" aria-label="Back to Top">
+          <svg className="back-to-top-icon" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
+          </svg>
+        </button>
+      )}
     </>
   )
 }

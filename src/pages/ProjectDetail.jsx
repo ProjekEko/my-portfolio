@@ -12,10 +12,35 @@ function ProjectDetail() {
   const [modalImages, setModalImages] = useState([])
   const [modalCurrentIndex, setModalCurrentIndex] = useState(0)
   const [modalIsVideo, setModalIsVideo] = useState(false)
+  
+  // Back to Top Button state
+  const [showBackToTop, setShowBackToTop] = useState(false)
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' })
   }, [id])
+
+  // Back to Top Button - detect scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowBackToTop(true)
+      } else {
+        setShowBackToTop(false)
+      }
+    }
+    
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Fungsi scroll ke atas
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  }
 
   useEffect(() => {
     ScrollReveal({ reset: true, distance: '50px', duration: 800, delay: 200 })
@@ -300,6 +325,15 @@ function ProjectDetail() {
             )}
           </div>
         </div>
+      )}
+
+      {/* Back to Top Button */}
+      {showBackToTop && (
+        <button onClick={scrollToTop} className="back-to-top-btn" aria-label="Back to Top">
+          <svg className="back-to-top-icon" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
+          </svg>
+        </button>
       )}
     </>
   )

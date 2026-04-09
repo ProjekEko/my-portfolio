@@ -54,7 +54,7 @@ export const projects = [
     id: 2,
     title: "Riahna Boutique Hotel - Company Profile",
     tech: ["HTML5", "Tailwind CSS", "JavaScript", "Responsive Web"],
-    description: "Website company profile untuk Riahna Boutique Hotel. Menampilkan informasi kamar eksklusif, fasilitas premium, daftar harga kamar, sistem reservasi online, dan kritik & saran untuk penginapan modern di Metro, Lampung.",
+    description: "Website company profile hotel dengan informasi kamar, fasilitas, harga dan reservasi online.",
     image: "/projects/Screenshot 2026-04-06 034445.png",
     imagePosition: "center center",
     year: "2024",
