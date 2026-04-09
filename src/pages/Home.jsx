@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { skills, projects, certificates, experiences } from '../data/data'
 import ProjectCard from '../components/ProjectCard'
-import ScrollReveal from 'scrollreveal'  // ← TAMBAHKAN
+import ScrollReveal from 'scrollreveal'
 import ProjectCarousel from '../components/ProjectCarousel'
 
 function Home() {
@@ -21,6 +21,21 @@ function Home() {
     setSelectedImage(null)
   }
 
+  // Fungsi scroll ke section
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+      const offset = 70 // offset untuk navbar
+      const elementPosition = element.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - offset
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+    }
+  }
+
   // REF untuk efek foto magnetic
   const imageRef = useRef(null)
   const [imageStyle, setImageStyle] = useState({})
@@ -34,9 +49,9 @@ function Home() {
   const [isDeleting, setIsDeleting] = useState(false)
   const [loopNum, setLoopNum] = useState(0)
   const roles = [
-    "Software Developer | Web, Mobile & IoT",
-    "Fullstack Developer",
-    "React & Flutter Expert",
+    "Software Developer (Web, Mobile & IoT)",
+    "Fullstack Web & Mobile Developer",
+    "React & Flutter Developer",
     "AI & IoT Enthusiast",
     "Tech Content Creator"
   ]
@@ -261,22 +276,27 @@ function Home() {
           </div>
           
           <p className="hero-desc">
-            Membangun aplikasi modern dengan teknologi terbaru. 
-            Fokus pada UI/UX yang menarik dan performa optimal.
+            Software Developer dengan minat pada Web, Mobile, dan Internet of Things. 
+            Membangun aplikasi yang scalable, interaktif, dan berorientasi pada solusi 
+            nyata melalui teknologi modern.
           </p>
           <div className="hero-buttons">
-            <button className="btn-primary">View Projects →</button>
-            <button className="btn-secondary">Contact Me</button>
+            <button className="btn-primary" onClick={() => scrollToSection('projects')}>
+              View Projects →
+            </button>
+            <button className="btn-secondary" onClick={() => scrollToSection('contact')}>
+              Contact Me
+            </button>
           </div>
           <div className="stats">
-            <div className="stat"><h3>4+</h3><p>Years Exp</p></div>
-            <div className="stat"><h3>20+</h3><p>Projects</p></div>
-            <div className="stat"><h3>15+</h3><p>Clients</p></div>
+            <div className="stat"><h3>5+</h3><p>Years Exp</p></div>
+            <div className="stat"><h3>35+</h3><p>Projects</p></div>
+            <div className="stat"><h3>60+</h3><p>Clients</p></div>
           </div>
         </div>
       </section>
 
-      {/* Skills Section - Modern Pill Design */}
+      {/* Skills Section */}
       <section id="skills" className="skills-section">
         <div className="container">
           <div className="section-header">
@@ -319,101 +339,100 @@ function Home() {
         </div>
       </section>
 
-      {/* Projects Section - Dengan Kategori */}
-<section id="projects" className="projects-section">
-  <div className="container">
-    <div className="section-header">
-      <span className="section-tag">Featured Work</span>
-      <h2>Latest Projects</h2>
-    </div>
-    
-    {/* Web Projects */}
-    <div className="project-category">
-      <div className="project-category-header">
-        <span className="project-category-icon">🌐</span>
-        <h3 className="project-category-title">Web Development</h3>
-        <span className="project-count">{projects.filter(p => p.category === 'web').length} Projects</span>
-      </div>
-      
-      {/* Desktop: Grid View */}
-      <div className="projects-grid desktop-grid">
-        {projects.filter(p => p.category === 'web').slice(0, 3).map((project, idx) => (
-          <ProjectCard 
-            key={project.id} 
-            project={project} 
-            index={idx} 
-            onImageClick={openModal}
-          />
-        ))}
-      </div>
-      
-      {/* Mobile/Tablet: Carousel View */}
-      <div className="mobile-carousel">
-        <ProjectCarousel 
-          projects={projects.filter(p => p.category === 'web')}
-          category="web"
-          onImageClick={openModal}
-        />
-      </div>
-    </div>
+      {/* Projects Section */}
+      <section id="projects" className="projects-section">
+        <div className="container">
+          <div className="section-header">
+            <span className="section-tag">Featured Work</span>
+            <h2>Latest Projects</h2>
+          </div>
+          
+          {/* Web Projects */}
+          <div className="project-category">
+            <div className="project-category-header">
+              <span className="project-category-icon">🌐</span>
+              <h3 className="project-category-title">Web Development</h3>
+              <span className="project-count">{projects.filter(p => p.category === 'web').length} Projects</span>
+            </div>
+            
+            <div className="projects-grid desktop-grid">
+              {projects.filter(p => p.category === 'web').slice(0, 3).map((project, idx) => (
+                <ProjectCard 
+                  key={project.id} 
+                  project={project} 
+                  index={idx} 
+                  onImageClick={openModal}
+                />
+              ))}
+            </div>
+            
+            <div className="mobile-carousel">
+              <ProjectCarousel 
+                projects={projects.filter(p => p.category === 'web')}
+                category="web"
+                onImageClick={openModal}
+              />
+            </div>
+          </div>
 
-    {/* Android Projects */}
-    <div className="project-category">
-      <div className="project-category-header">
-        <span className="project-category-icon">📱</span>
-        <h3 className="project-category-title">Android / Mobile Development</h3>
-        <span className="project-count">{projects.filter(p => p.category === 'android').length} Projects</span>
-      </div>
-      
-      <div className="projects-grid desktop-grid">
-        {projects.filter(p => p.category === 'android').slice(0, 3).map((project, idx) => (
-          <ProjectCard 
-            key={project.id} 
-            project={project} 
-            index={idx} 
-            onImageClick={openModal}
-          />
-        ))}
-      </div>
-      
-      <div className="mobile-carousel">
-        <ProjectCarousel 
-          projects={projects.filter(p => p.category === 'android')}
-          category="android"
-          onImageClick={openModal}
-        />
-      </div>
-    </div>
+          {/* Android Projects */}
+          <div className="project-category">
+            <div className="project-category-header">
+              <span className="project-category-icon">📱</span>
+              <h3 className="project-category-title">Android / Mobile Development</h3>
+              <span className="project-count">{projects.filter(p => p.category === 'android').length} Projects</span>
+            </div>
+            
+            <div className="projects-grid desktop-grid">
+              {projects.filter(p => p.category === 'android').slice(0, 3).map((project, idx) => (
+                <ProjectCard 
+                  key={project.id} 
+                  project={project} 
+                  index={idx} 
+                  onImageClick={openModal}
+                />
+              ))}
+            </div>
+            
+            <div className="mobile-carousel">
+              <ProjectCarousel 
+                projects={projects.filter(p => p.category === 'android')}
+                category="android"
+                onImageClick={openModal}
+              />
+            </div>
+          </div>
 
-    {/* IoT Projects */}
-    <div className="project-category">
-      <div className="project-category-header">
-        <span className="project-category-icon">🔌</span>
-        <h3 className="project-category-title">IoT & Embedded Systems</h3>
-        <span className="project-count">{projects.filter(p => p.category === 'iot').length} Projects</span>
-      </div>
-      
-      <div className="projects-grid desktop-grid">
-        {projects.filter(p => p.category === 'iot').slice(0, 3).map((project, idx) => (
-          <ProjectCard 
-            key={project.id} 
-            project={project} 
-            index={idx} 
-            onImageClick={openModal}
-          />
-        ))}
-      </div>
-      
-      <div className="mobile-carousel">
-        <ProjectCarousel 
-          projects={projects.filter(p => p.category === 'iot')}
-          category="iot"
-          onImageClick={openModal}
-        />
-      </div>
-    </div>
-  </div>
-</section>
+          {/* IoT Projects */}
+          <div className="project-category">
+            <div className="project-category-header">
+              <span className="project-category-icon">🔌</span>
+              <h3 className="project-category-title">IoT & Embedded Systems</h3>
+              <span className="project-count">{projects.filter(p => p.category === 'iot').length} Projects</span>
+            </div>
+            
+            <div className="projects-grid desktop-grid">
+              {projects.filter(p => p.category === 'iot').slice(0, 3).map((project, idx) => (
+                <ProjectCard 
+                  key={project.id} 
+                  project={project} 
+                  index={idx} 
+                  onImageClick={openModal}
+                />
+              ))}
+            </div>
+            
+            <div className="mobile-carousel">
+              <ProjectCarousel 
+                projects={projects.filter(p => p.category === 'iot')}
+                category="iot"
+                onImageClick={openModal}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Certificates Section */}
       <section id="certificates" className="certificates-section">
         <div className="container">
@@ -452,7 +471,7 @@ function Home() {
         </div>
       </section>
 
-      {/* Modal untuk lihat gambar full screen */}
+      {/* Modal */}
       {isModalOpen && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -506,10 +525,9 @@ function Home() {
                 <div className="contact-item"><span>📍</span><p>Tangerang, Indonesia</p></div>
               </div>
               <div className="social-links">
-                <a href="#" className="social-icon">GitHub</a>
-                <a href="#" className="social-icon">LinkedIn</a>
-                <a href="#" className="social-icon">Twitter</a>
-                <a href="#" className="social-icon">Instagram</a>
+                <a href="https://github.com/ProjekEko" target="_blank" rel="noopener noreferrer" className="social-icon">GitHub</a>
+                <a href="https://www.linkedin.com/in/eko-haryadi-544561272/" target="_blank" rel="noopener noreferrer" className="social-icon">LinkedIn</a>
+                <a href="https://www.instagram.com/eckooo__/" target="_blank" rel="noopener noreferrer" className="social-icon">Instagram</a>
               </div>
             </div>
             <form className="contact-form">

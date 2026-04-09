@@ -2776,3 +2776,774 @@ body {
     font-size: 0.75em;
   }
 }
+
+
+
+
+
+
+
+
+
+/* ======================================== */
+/* HAMBURGER MENU - MOBILE STYLES */
+/* ======================================== */
+
+/* Sembunyikan desktop menu di mobile */
+@media (max-width: 768px) {
+
+  .desktop-menu,
+  .desktop-resume {
+    display: none !important;
+  }
+
+  /* Tampilkan hamburger di mobile */
+  .hamburger-btn {
+    display: flex !important;
+  }
+}
+
+/* Tampilkan desktop menu di desktop */
+@media (min-width: 769px) {
+
+  .hamburger-btn,
+  .mobile-menu {
+    display: none !important;
+  }
+
+  .desktop-menu,
+  .desktop-resume {
+    display: flex !important;
+  }
+}
+
+/* Hamburger Button */
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 30px;
+  height: 22px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+.hamburger-line {
+  width: 100%;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Animasi hamburger jadi X */
+.hamburger-btn.active .hamburger-line:nth-child(1) {
+  transform: translateY(10px) rotate(45deg);
+}
+
+.hamburger-btn.active .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-btn.active .hamburger-line:nth-child(3) {
+  transform: translateY(-10px) rotate(-45deg);
+}
+
+/* Mobile Menu Overlay */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 80%;
+  max-width: 300px;
+  height: 100vh;
+  background: rgba(10, 10, 10, 0.98);
+  backdrop-filter: blur(20px);
+  z-index: 1000;
+  transition: left 0.3s ease;
+  padding-top: 80px;
+  border-right: none !important;
+  /* HAPUS border kanan */
+  box-shadow: 2px 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.mobile-menu.open {
+  left: 0;
+}
+
+/* Mobile Navigation Links */
+.mobile-nav-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  border-left: none !important;
+  /* HAPUS border kiri */
+  border-bottom: none !important;
+  /* HAPUS border bawah */
+  border-top: none !important;
+  border-right: none !important;
+  gap: 5px;
+}
+
+.mobile-nav-link {
+  display: block;
+  padding: 15px 25px;
+  color: white;
+  text-decoration: none;
+  font-size: 1.1em;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+}
+
+.mobile-nav-link:hover {
+  background: rgba(102, 126, 234, 0.15);
+  border-left-color: #667eea;
+  padding-left: 30px;
+}
+
+/* Mobile Resume Button */
+.mobile-resume-btn {
+  width: calc(100% - 50px);
+  margin: 15px 25px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border: none;
+  border-radius: 30px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95em;
+}
+
+.mobile-resume-btn:hover {
+  transform: translateX(5px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Overlay saat menu terbuka */
+.mobile-menu::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu.open::before {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Scroll lock saat menu terbuka */
+body.menu-open {
+  overflow: hidden;
+}
+
+
+
+
+/* ======================================== */
+/* NAVBAR PROJECT DETAIL - HIDE ICON & YEAR ON MOBILE/TABLET */
+/* ======================================== */
+
+/* Untuk tablet (max 768px) - sembunyikan icon dan year */
+@media (max-width: 768px) {
+
+  .navbar-category .navbar-category-icon,
+  .navbar-category .navbar-category-year {
+    display: none !important;
+  }
+
+  /* Tampilkan hanya nama category */
+  .navbar-category .navbar-category-name {
+    display: inline-block !important;
+    font-size: 0.85em !important;
+  }
+
+  /* Kurangi padding category chip */
+  .navbar-category {
+    padding: 4px 12px !important;
+    gap: 0 !important;
+  }
+}
+
+/* Untuk mobile kecil (max 480px) - perkecil lagi */
+@media (max-width: 480px) {
+  .navbar-category .navbar-category-name {
+    font-size: 0.75em !important;
+  }
+
+  .navbar-category {
+    padding: 3px 10px !important;
+  }
+}
+
+/* Untuk iPhone SE (max 375px) */
+@media (max-width: 375px) {
+  .navbar-category .navbar-category-name {
+    font-size: 0.65em !important;
+  }
+
+  .navbar-category {
+    padding: 2px 8px !important;
+  }
+}
+
+
+/* ======================================== */
+/* PRELOADER STYLES */
+/* ======================================== */
+
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeOut 0.5s ease forwards;
+  animation-delay: 1.5s;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.preloader-container {
+  text-align: center;
+  animation: pulse 1.5s ease infinite;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Logo Animation */
+.preloader-logo {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preloader-logo-inner {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: rotateLogo 1s ease infinite;
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes rotateLogo {
+  0% {
+    transform: rotate(0deg);
+    border-radius: 20px;
+  }
+
+  50% {
+    transform: rotate(10deg);
+    border-radius: 30px;
+  }
+
+  100% {
+    transform: rotate(0deg);
+    border-radius: 20px;
+  }
+}
+
+.preloader-logo-text {
+  font-size: 2.5em;
+  font-weight: bold;
+  color: white;
+  animation: textPulse 1s ease infinite;
+}
+
+@keyframes textPulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.preloader-logo-glow {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(102, 126, 234, 0.4) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: 1;
+  animation: glowPulse 1.5s ease infinite;
+}
+
+@keyframes glowPulse {
+
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* Progress Bar */
+.preloader-progress-container {
+  width: 280px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  margin: 20px auto;
+  overflow: hidden;
+}
+
+.preloader-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+.preloader-progress-glow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5));
+  animation: shimmer 1s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+/* Text */
+.preloader-text {
+  margin: 20px 0;
+}
+
+.preloader-percentage {
+  display: block;
+  font-size: 2em;
+  font-weight: bold;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+
+.preloader-status {
+  font-size: 0.85em;
+  color: #888;
+  letter-spacing: 1px;
+}
+
+/* Loading Dots */
+.preloader-dots {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.preloader-dots .dot {
+  width: 10px;
+  height: 10px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 50%;
+  animation: bounce 0.6s ease infinite;
+}
+
+.preloader-dots .dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.preloader-dots .dot:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.preloader-dots .dot:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+@keyframes bounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .preloader-progress-container {
+    width: 220px;
+  }
+
+  .preloader-logo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .preloader-logo-inner {
+    width: 60px;
+    height: 60px;
+  }
+
+  .preloader-logo-text {
+    font-size: 2em;
+  }
+
+  .preloader-percentage {
+    font-size: 1.5em;
+  }
+
+  .preloader-status {
+    font-size: 0.75em;
+  }
+}
+
+
+/* Sembunyikan tombol Download CV di mobile (max 768px) */
+@media (max-width: 768px) {
+  .desktop-cv-btn {
+    display: none !important;
+  }
+}
+
+/* Tampilkan tombol Download CV di desktop (min 769px) */
+@media (min-width: 769px) {
+  .desktop-cv-btn {
+    display: flex !important;
+  }
+}
+
+/* ======================================== */
+/* MOBILE MENU - NO BORDERS */
+/* ======================================== */
+
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 80%;
+  max-width: 300px;
+  height: 100vh;
+  background: #0a0a0a !important;
+  backdrop-filter: none !important;
+  z-index: 1000;
+  transition: left 0.3s ease;
+  padding-top: 80px;
+  border-right: none !important;
+  /* HAPUS border kanan */
+  box-shadow: 2px 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.mobile-menu.open {
+  left: 0;
+}
+
+/* Mobile Navigation Links - HAPUS SEMUA GARIS */
+.mobile-nav-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  /* HAPUS gap */
+}
+
+.mobile-nav-link {
+  display: block;
+  padding: 15px 25px;
+  color: white;
+  text-decoration: none;
+  font-size: 1.1em;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border-left: none !important;
+  /* HAPUS border kiri */
+  border-bottom: none !important;
+  /* HAPUS border bawah */
+  border-top: none !important;
+  border-right: none !important;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.mobile-nav-link:hover {
+  background: rgba(102, 126, 234, 0.15);
+  border-left: none !important;
+  padding-left: 30px;
+}
+
+/* Mobile Resume Button (Download CV) */
+.mobile-resume-btn {
+  width: calc(100% - 50px);
+  margin: 15px 25px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border: none !important;
+  border-radius: 30px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95em;
+}
+
+.mobile-resume-btn:hover {
+  transform: translateX(5px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Hapus semua garis yang mungkin muncul dari parent */
+.mobile-menu * {
+  border: none !important;
+}
+
+/* Hapus pseudo-element yang mungkin membuat garis */
+.mobile-menu::before,
+.mobile-menu::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Scroll lock saat menu terbuka */
+body.menu-open {
+  overflow: hidden;
+}
+
+/* Navbar category styling */
+.navbar-category {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+/* Hamburger button styling */
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 30px;
+  height: 22px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+.hamburger-line {
+  width: 100%;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Animasi hamburger jadi X */
+.hamburger-btn.active .hamburger-line:nth-child(1) {
+  transform: translateY(10px) rotate(45deg);
+}
+
+.hamburger-btn.active .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-btn.active .hamburger-line:nth-child(3) {
+  transform: translateY(-10px) rotate(-45deg);
+}
+
+/* Tampilkan hamburger di mobile */
+@media (max-width: 768px) {
+  .hamburger-btn {
+    display: flex !important;
+  }
+
+  .desktop-menu {
+    display: none !important;
+  }
+}
+
+/* Tampilkan desktop menu di desktop */
+@media (min-width: 769px) {
+  .hamburger-btn {
+    display: none !important;
+  }
+
+  .desktop-menu {
+    display: flex !important;
+  }
+}
+
+
+/* ======================================== */
+/* CV DROPDOWN STYLES */
+/* ======================================== */
+
+.cv-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.cv-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 10px;
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(102, 126, 234, 0.3);
+  border-radius: 12px;
+  overflow: hidden;
+  z-index: 1002;
+  min-width: 180px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.cv-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 0.85em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.cv-dropdown-item:hover {
+  background: rgba(102, 126, 234, 0.2);
+  padding-left: 25px;
+}
+
+/* Mobile CV buttons */
+.mobile-cv-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 10px 20px;
+}
+
+.mobile-resume-btn.en {
+  margin-top: 5px;
+  background: linear-gradient(135deg, #00b4db, #0083b0);
+}
+
+.mobile-resume-btn.en:hover {
+  background: linear-gradient(135deg, #0083b0, #00b4db);
+}
+
+/* Desktop CV button hover effect */
+.resume-btn {
+  background: transparent;
+  border: 2px solid #667eea;
+  color: #667eea;
+  padding: 10px 25px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.resume-btn:hover {
+  background: #667eea;
+  color: #fff;
+}
+
+
+/* ======================================== */
+/* HIDE DESKTOP CV BUTTON ON MOBILE */
+/* ======================================== */
+
+/* Sembunyikan tombol CV desktop di mobile (max 768px) */
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none !important;
+  }
+
+  .cv-dropdown {
+    display: none !important;
+  }
+}
+
+/* Tampilkan tombol CV desktop di desktop (min 769px) */
+@media (min-width: 769px) {
+  .desktop-only {
+    display: inline-block !important;
+  }
+
+  .hide-on-mobile {
+    display: inline-block !important;
+  }
+}
