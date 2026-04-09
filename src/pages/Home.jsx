@@ -501,9 +501,9 @@ function Home() {
               <h2>Let's Work Together</h2>
               <p>Saya selalu terbuka untuk kolaborasi dan project baru</p>
               <div className="contact-details">
-                <div className="contact-item"><span>📧</span><p>eko.haryadi@dev.com</p></div>
-                <div className="contact-item"><span>📱</span><p>+62 812 3456 7890</p></div>
-                <div className="contact-item"><span>📍</span><p>Jakarta, Indonesia</p></div>
+                <div className="contact-item"><span>📧</span><p>eko.haryadi321@gmail.com</p></div>
+                <div className="contact-item"><span>📱</span><p>+62 851 5724 4997</p></div>
+                <div className="contact-item"><span>📍</span><p>Tangerang, Indonesia</p></div>
               </div>
               <div className="social-links">
                 <a href="#" className="social-icon">GitHub</a>
